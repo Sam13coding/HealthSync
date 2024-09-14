@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Name - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .upload-section {
+            margin-bottom: 20px;
+        }
+
+        .upload-section label {
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .file-upload {
+            padding: 12px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            text-align: center;
+            color: #888;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #4CAF50;
+        }
+
+        .tagging-section {
+            margin-top: 20px;
+        }
+
+        .tagging-section label {
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            color: #555;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-top: 30px;
+        }
+
+        .search-section label {
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        /* Search Results */
+        .document-list {
+            margin-top: 20px;
+        }
+
+        .document-list .document-item {
+            padding: 15px;
+            background-color: #f4f7fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .document-list .document-item .doc-name {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .document-list .document-item .doc-category {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Upload Button */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #45A049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Upload Medical Documents</h2>
+
+        <!-- Document Upload Section -->
+        <div class="upload-section">
+            <label for="file-input">Upload Image (e.g., PDF, JPG, PNG):</label>
+            <input type="file" id="file-input" accept="image/*" class="file-upload">
+        </div>
+
+
+        <!-- Tagging Section -->
+        <div class="tagging-section">
+            <label for="doc-category">Tag Document Category:</label>
+            <select id="doc-category">
+                <option value="prescription">Prescription</option>
+                <option value="test-results">Test Results</option>
+                <option value="report">Doctor Report</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <!-- Upload Button -->
+        <button class="btn" href="HEALTHSYNC3.HTML">Upload Document</button>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <label for="search">Search Documents:</label>
+            <input type="text" id="search" placeholder="Search by name or category">
+        </div>
+
+        <!-- Document List (Search Results) -->
+        <div class="document-list">
+            <div class="document-item">
+                <div class="doc-name">Blood Test Report</div>
+                <div class="doc-category">Test Results</div>
+            </div>
+            <div class="document-item">
+                <div class="doc-name">Prescription for Medication</div>
+                <div class="doc-category">Prescription</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

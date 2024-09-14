@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Name - User Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #4CAF50;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            font-size: 24px;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .card .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card h3 {
+                font-size: 16px;
+            }
+
+            .card p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>HealthSync</h1>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#profile">Profile</a>
+            <a href="#settings">Settings</a>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h2>Welcome to Your Health Dashboard</h2>
+
+        <!-- Sample Card 1: Health Summary -->
+        <div class="card">
+            <div>
+                <h3>Health Summary</h3>
+                <p>View your recent health statistics and reports.</p>
+            </div>
+            <button class="btn" onclick="openHealthSummary()">View</button>
+        </div>
+
+        <!-- Sample Card 2: Upcoming Appointments -->
+        <div class="card">
+            <div>
+                <h3>Upcoming Appointments</h3>
+                <p>Check your schedule and book new appointments.</p>
+            </div>
+            <button class="btn" onclick="viewAppointments()">View</button>
+        </div>
+
+        <!-- Sample Card 3: Medical Reports -->
+        <div class="card">
+            <div>
+                <h3>Medical Reports</h3>
+                <p>Access all your past medical reports and share with doctors.</p>
+            </div>
+            <button class="btn" onclick="viewReports()">View</button>
+        </div>
+    </div>
+
+    <script>
+        // Placeholder function for viewing health summary
+        function openHealthSummary() {
+            alert('Opening Health Summary...');
+            window.open("HEALTHSYNC6.html", "_self");
+        }
+
+        // Placeholder function for viewing appointments
+        function viewAppointments() {
+            alert('Opening Appointments...');
+            window.open("HEALTHSYNC8.html", "_self");
+        }
+
+        // Placeholder function for viewing medical reports
+        function viewReports() {
+            alert('Opening Medical Reports...');
+        }
+    </script>
+
+</body>
+</html>

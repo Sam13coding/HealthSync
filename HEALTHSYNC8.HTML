@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .selection-container {
+            margin-bottom: 30px;
+        }
+
+        .selection-container h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .selection-container .option-item {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .selection-container .option-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .selection-container .option-item h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .selection-container .option-item p {
+            margin: 0;
+        }
+
+        .selection-container .book-button {
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .selection-container .book-button:hover {
+            background-color: #0056b3;
+        }
+
+        .date-time-container,
+        .review-container {
+            margin-top: 20px;
+        }
+
+        .date-time-container label,
+        .review-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .date-time-container input[type="date"],
+        .date-time-container select,
+        .review-container input,
+        .review-container textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .confirmation-message,
+        .review-message {
+            display: none;
+            padding: 15px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .review-container {
+            display: none;
+        }
+
+        .review-button {
+            display: block;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .review-button:hover {
+            background-color: #218838;
+        }
+
+        .contact-info {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .contact-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .rating input:checked ~ label,
+        .rating input:checked ~ label ~ label {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Book Doctor or Hospital Appointments</h1>
+
+        <!-- Selection Container -->
+        <div class="selection-container">
+            <h2>Doctors</h2>
+            <div id="doctorsList"></div>
+            <h2>Hospitals</h2>
+            <div id="hospitalsList"></div>
+        </div>
+
+        <!-- Date Selection -->
+        <div id="dateTimeContainer" class="date-time-container" style="display: none;">
+            <label for="appointmentDate">Select Date:</label>
+            <input type="date" id="appointmentDate">
+
+            <label for="slotSelect">Select Slot:</label>
+            <select id="slotSelect">
+                <!-- Slots will be populated dynamically -->
+            </select>
+        </div>
+
+        <!-- Confirmation Message -->
+        <div id="confirmationMessage" class="confirmation-message"></div>
+
+        <!-- Review Section -->
+        <div id="reviewContainer" class="review-container">
+            <h2>Rate and Review</h2>
+            <label for="rating">Rating:</label>
+            <div id="rating" class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1">&#9733;</label>
+            </div>
+
+            <label for="reviewText">Write your review:</label>
+            <textarea id="reviewText" rows="4" placeholder="Enter your review here..."></textarea>
+
+            <button class="review-button" onclick="submitReview()">Submit Review</button>
+            <div id="reviewMessage" class="review-message"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Sample data for demonstration purposes
+        const doctors = [
+            { name: 'Dr. John Smith', specialty: 'Cardiologist', location: 'New York', contact: '123-456-7890', email: 'john.smith@example.com' },
+            { name: 'Dr. Jane Doe', specialty: 'Neurologist', location: 'Los Angeles', contact: '234-567-8901', email: 'jane.doe@example.com' },
+            { name: 'Dr. Emily Brown', specialty: 'Orthopedic', location: 'Chicago', contact: '345-678-9012', email: 'emily.brown@example.com' },
+            { name: 'Dr. Michael White', specialty: 'Dermatologist', location: 'Houston', contact: '456-789-0123', email: 'michael.white@example.com' },
+            { name: 'Dr. Sarah Lee', specialty: 'Pediatrician', location: 'San Francisco', contact: '567-890-1234', email: 'sarah.lee@example.com' }
+        ];
+
+        const hospitals = [
+            { name: 'General Hospital', location: 'New York', contact: '678-901-2345', email: 'info@generalhospital.com' },
+            { name: 'City Clinic', location: 'Los Angeles', contact: '789-012-3456', email: 'contact@cityclinic.com' },
+            { name: 'Health Center', location: 'Chicago', contact: '890-123-4567', email: 'support@healthcenter.com' },
+            { name: 'Sunrise Hospital', location: 'Houston', contact: '901-234-5678', email: 'info@sunrisehospital.com' },
+            { name: 'Bay Area Medical Center', location: 'San Francisco', contact: '012-345-6789', email: 'info@bayareamedical.com' }
+        ];
+
+        const slots = [
+            '09:00 AM - 10:00 AM',
+            '10:00 AM - 11:00 AM',
+            '11:00 AM - 12:00 PM',
+            '01:00 PM - 02:00 PM',
+            '02:00 PM - 03:00 PM'
+        ];
+
+        // Populate doctors and hospitals lists
+        function populateLists() {
+            const doctorsList = document.getElementById('doctorsList');
+            const hospitalsList = document.getElementById('hospitalsList');
+
+            doctors.forEach((doc) => {
+                const item = document.createElement('div');
+                item.className = 'option-item';
+                item.innerHTML = `
+                    <h3>${doc.name}</h3>
+                    <p>Specialty: ${doc.specialty}</p>
+                    <p>Location: ${doc.location}</p>
+                    <p class="contact-info">Contact: ${doc.contact} <br> Email: <a href="mailto:${doc.email}">${doc.email}</a></p>
+                    <button class="book-button" onclick="showDateSelector('Doctor', '${doc.name}')">Book Appointment</button>
+                `;
+                doctorsList.appendChild(item);
+            });
+
+            hospitals.forEach((hosp) => {
+                const item = document.createElement('div');
+                item.className = 'option-item';
+                item.innerHTML = `
+                    <h3>${hosp.name}</h3>
+                    <p>Location: ${hosp.location}</p>
+                    <p class="contact-info">Contact: ${hosp.contact} <br> Email: <a href="mailto:${hosp.email}">${hosp.email}</a></p>
+                    <button class="book-button" onclick="showDateSelector('Hospital', '${hosp.name}')">Book Appointment</button>
+                `;
+                hospitalsList.appendChild(item);
+            });
+        }
+
+        function showDateSelector(type, name) {
+            const dateTimeContainer = document.getElementById('dateTimeContainer');
+            const reviewContainer = document.getElementById('reviewContainer');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const slotSelect = document.getElementById('slotSelect');
+
+            // Populate slots
+            slotSelect.innerHTML = '';
+            slots.forEach(slot => {
+                const option = document.createElement('option');
+                option.value = slot;
+                option.textContent = slot;
+                slotSelect.appendChild(option);
+            });
+
+            dateTimeContainer.style.display = 'block';
+            dateTimeContainer.dataset.type = type;
+            dateTimeContainer.dataset.name = name;
+
+            slotSelect.onchange = () => {
+                bookAppointment();
+            };
+        }
+
+        function bookAppointment() {
+            const type = document.getElementById('dateTimeContainer').dataset.type;
+            const name = document.getElementById('dateTimeContainer').dataset.name;
+            const date = document.getElementById('appointmentDate').value;
+            const slot = document.getElementById('slotSelect').value;
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const reviewContainer = document.getElementById('reviewContainer');
+
+            if (!date || !slot) {
+                alert('Please select a date and slot.');
+                return;
+            }
+
+            confirmationMessage.innerHTML = `
+                Appointment with ${type}: ${name} has been booked.<br>
+                Date: ${date}<br>
+                Slot: ${slot}<br>
+                <button class="review-button" onclick="showReviewSection()">Rate and Review</button>
+            `;
+            confirmationMessage.style.display = 'block';
+
+            reviewContainer.style.display = 'block';
+        }
+
+        function showReviewSection() {
+            document.getElementById('reviewContainer').style.display = 'block';
+        }
+
+        function submitReview() {
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const reviewText = document.getElementById('reviewText').value;
+            const reviewMessage = document.getElementById('reviewMessage');
+
+            if (!rating) {
+                alert('Please select a rating.');
+                return;
+            }
+
+            reviewMessage.innerHTML = `
+                Thank you for your feedback!<br>
+                Rating: ${rating.value} Star(s)<br>
+                Review: ${reviewText || 'No review provided'}
+            `;
+            reviewMessage.style.display = 'block';
+        }
+
+        // Initialize the lists on page load
+        window.onload = populateLists;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Data Visualization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .chart-container {
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .chart-container canvas {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Health Data Visualization</h1>
+
+        <!-- Chart Containers -->
+        <div class="chart-container">
+            <canvas id="barChart"></canvas>
+            <canvas id="pieChart"></canvas>
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Simulated historical data for multiple years
+        const historicalData = {
+            '2022': {
+                bp: 120,
+                cholesterol: 200,
+                glucose: 140,
+                weight: 75,
+                heartRate: 70
+            },
+            '2023': {
+                bp: 115,
+                cholesterol: 190,
+                glucose: 130,
+                weight: 72,
+                heartRate: 68
+            },
+            '2024': {
+                bp: 110,
+                cholesterol: 180,
+                glucose: 125,
+                weight: 70,
+                heartRate: 65
+            }
+        };
+
+        // Prepare data for Bar Chart
+        const years = Object.keys(historicalData);
+        const metrics = ['bp', 'cholesterol', 'glucose', 'weight', 'heartRate'];
+        const barData = {
+            labels: years,
+            datasets: metrics.map(metric => ({
+                label: metric.charAt(0).toUpperCase() + metric.slice(1),
+                data: years.map(year => historicalData[year][metric]),
+                backgroundColor: getRandomColor(),
+                borderColor: getRandomColor(),
+                borderWidth: 1
+            }))
+        };
+
+        const barConfig = {
+            type: 'bar',
+            data: barData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Health Metrics Overview by Year'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Prepare data for Pie Chart
+        const pieData = {
+            labels: metrics,
+            datasets: [{
+                label: 'Health Metrics Distribution',
+                data: metrics.map(metric => historicalData['2024'][metric]),
+                backgroundColor: metrics.map(() => getRandomColor()),
+                hoverOffset: 5
+            }]
+        };
+
+        const pieConfig = {
+            type: 'pie',
+            data: pieData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Health Metrics Distribution (2024)'
+                    }
+                }
+            }
+        };
+
+        // Prepare data for Line Chart
+        const lineData = {
+            labels: years,
+            datasets: metrics.map(metric => ({
+                label: metric.charAt(0).toUpperCase() + metric.slice(1),
+                data: years.map(year => historicalData[year][metric]),
+                borderColor: getRandomColor(),
+                fill: false
+            }))
+        };
+
+        const lineConfig = {
+            type: 'line',
+            data: lineData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Health Metrics Trends by Year'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Function to generate random colors
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Render Charts
+        new Chart(document.getElementById('barChart'), barConfig);
+        new Chart(document.getElementById('pieChart'), pieConfig);
+        new Chart(document.getElementById('lineChart'), lineConfig);
+    </script>
+
+</body>
+</html>

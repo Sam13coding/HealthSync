@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Name - OCR Data Extraction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/tesseract.min.js"></script>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-section {
+            margin-bottom: 20px;
+        }
+
+        .upload-section label {
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .file-upload {
+            padding: 12px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            text-align: center;
+            color: #888;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #4CAF50;
+        }
+
+        /* OCR Result Section */
+        .result-section {
+            margin-top: 20px;
+        }
+
+        .result-section h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .result-section pre {
+            background-color: #f4f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            color: #555;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            margin: 0 auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Automated Data Extraction</h2>
+
+        <!-- Document Upload Section -->
+        <div class="upload-section">
+            <label for="file-input">Upload Image (e.g., PDF, JPG, PNG):</label>
+            <input type="file" id="file-input" accept="image/*" class="file-upload" onchange="performOCR()">
+        </div>
+
+        <!-- Spinner (Loading) -->
+        <div id="spinner" class="spinner"></div>
+
+        <!-- Result Section -->
+        <div class="result-section">
+            <h3>Extracted Text:</h3>
+            <pre id="ocr-result">No text extracted yet.</pre>
+        </div>
+    </div>
+
+    <script>
+        function performOCR() {
+            const fileInput = document.getElementById('file-input');
+            const spinner = document.getElementById('spinner');
+            const ocrResult = document.getElementById('ocr-result');
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+
+                // Display spinner while processing
+                spinner.style.display = 'block';
+                ocrResult.textContent = 'Extracting text...';
+
+                // Perform OCR using Tesseract.js
+                Tesseract.recognize(
+                    file,
+                    'eng', // Language (English)
+                    {
+                        logger: (m) => console.log(m), // Log progress
+                    }
+                ).then(({ data: { text } }) => {
+                    // Hide spinner and show result
+                    spinner.style.display = 'none';
+                    ocrResult.textContent = text || 'No text found in the image.';
+                }).catch(err => {
+                    spinner.style.display = 'none';
+                    ocrResult.textContent = 'Error occurred while extracting text.';
+                    console.error(err);
+                });
+            } else {
+                ocrResult.textContent = 'Please upload an image file.';
+            }
+        }
+    </script>
+
+</body>
+</html>
